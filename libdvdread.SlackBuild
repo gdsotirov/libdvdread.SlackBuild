@@ -19,14 +19,14 @@
 #
 # Visit SlackPack at http://sotirov-bg.net/slackpack/
 #
-# $Id: libdvdread.SlackBuild,v 1.4 2016/08/23 18:21:28 gsotirov Exp $
+# $Id: libdvdread.SlackBuild,v 1.5 2016/08/23 18:37:07 gsotirov Exp $
 #
 
 . ../../slack-package.conf
 
 NAME=libdvdread
-VERSION=4.2.1
-ARCH=${ARCH:-i486}
+VERSION=5.0.3
+ARCH=${ARCH:-i586}
 BUILD=${BUILD:-1}
 
 CWD=${CWD:-`pwd`}
@@ -56,7 +56,6 @@ cd $SRC
 fix_source
 
 # COnfigure
-./autogen.sh || exit 40
 CFLAGS=$SLKCFLAGS \
 CXXFLAGS=$SLKCFLAGS \
 ./configure --build=$ARCH-slackware-linux \
@@ -67,7 +66,7 @@ CXXFLAGS=$SLKCFLAGS \
             --enable-static=no || exit 4
 
 # Build & install
-make -j4 || exit 5
+make V=1 -j || exit 5
 make -e DESTDIR=$PKG install || exit 6
 
 ( cd $PKG; strip_lib )
